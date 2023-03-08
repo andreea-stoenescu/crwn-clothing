@@ -31,7 +31,6 @@ provider.setCustomParameters({
 
 export const auth = getAuth();
 export const signInWithGooglePopup = () => signInWithPopup(auth, provider);
-export const signInWithGoogleRedirect = () => signInWithRedirect(auth, provider);
 
 export const db = getFirestore();
 
@@ -60,9 +59,4 @@ export const createUserDocumentFromAuth = async (userAuth) => {
   }
 
   return userDocRef;
-  //if user data does not exist
-  //create / set the document with the data from userAuth in my collection
-
-  //if user data exists
-
 }
