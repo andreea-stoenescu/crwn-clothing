@@ -1,12 +1,18 @@
 import { createContext, useState } from "react";
 
 const addCartItem = (cartItems, productToAdd) => {
-  //find if cart items contains the product to add
-
-  //if it does, increase the quantity by 1
-
-  //if it doesn't, add the product to the cart items array
-}
+  const existingCartItem = cartItems.find(
+    (cartItem) => cartItem.id === productToAdd.id
+  );
+  if (existingCartItem) {
+    return cartItems.map((cartItem) =>
+      cartItem.id === productToAdd.id
+        ? { ...cartItem, quantity: cartItem.quantity + 1 }
+        : cartItem
+    );
+  }
+  return [...cartItems, { ...productToAdd, quantity: 1 }];
+};
 
 export const CartContext = createContext({
   isCartOpen: false,
@@ -23,9 +29,9 @@ export const CartProvider = ({ children }) => {
   };
   const value = {
     isCartOpen,
-    setIsCartOpen
+    setIsCartOpen,
+    addItemToCart,
+    cartItems,
   };
-  return (
-    <CartContext.Provider value={value}>{children}</CartContext.Provider>
-  )
-}
+  return <CartContext.Provider value={value}>{children}</CartContext.Provider>;
+};
